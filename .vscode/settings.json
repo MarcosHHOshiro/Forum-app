@@ -1,0 +1,33 @@
+{
+  "workbench.colorTheme": "Min Dark",
+  "explorer.compactFolders": false,
+  "editor.lineHeight": 1.8,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "redhat.telemetry.enabled": true,
+  "vsicons.presets.jsonOfficial": true,
+  "[prisma]": {
+    "editor.formatOnSave": true,
+  },
+  "claudeCode.useTerminal": true,
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "remote.SSH.remotePlatform": {
+    "107": "linux",
+    "LAB-BACK-NOVO": "linux"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "workbench.iconTheme": "charmed-icons",
+  "editor.cursorBlinking": "phase",
+  "editor.cursorSmoothCaretAnimation": "on"
+}

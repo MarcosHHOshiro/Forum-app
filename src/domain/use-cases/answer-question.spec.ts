@@ -18,7 +18,5 @@ test("Create an answer", async () => {
         content: "This is an answer to the question."
     });
 
-    expect(answer).toEqual(expect.objectContaining({
-        content: "This is an answer to the question."
-    }));
+    expect(answer.content).toEqual("This is an answer to the question.");
 })
