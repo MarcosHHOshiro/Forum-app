@@ -1,6 +1,5 @@
 import { Entity } from "@/core/entities/entity";
 import type { UniqueEntityId } from "@/core/entities/unique-entity-id";
-import type { Optional } from "@/core/types/optional";
 
 interface InstructorProps {
   name: string;
