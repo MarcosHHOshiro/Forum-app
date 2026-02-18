@@ -1,25 +1,27 @@
 //error
-export class Left {
-  readonly value: any;
+export class Left<L> {
+  readonly value: L;
 
-  constructor(value: any) {
+  constructor(value: L) {
     this.value = value;
   }
 }
 
 //success
-export class Right {
-  readonly value: any;
+export class Right<R> {
+  readonly value: R;
 
-  constructor(value: any) {
+  constructor(value: R) {
     this.value = value;
   }
 }
 
-export const left = (value: any) => {
+export type Either<L, R> = Left<L> | Right<R>;
+
+export const left = <L, R>(value: L): Either<L, R> => {
   return new Left(value);
 }
 
-export const right = (value: any) => {
+export const right = <L, R>(value: R): Either<L, R> => {
   return new Right(value);
 }
