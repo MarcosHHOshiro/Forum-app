@@ -2,6 +2,7 @@ import { InMemoryAnswersRepository } from "test/repositories/in-memory-answers-r
 import { DeleteAnswerUseCase } from "./delete-answer";
 import { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import { makeAnswer } from "test/factories/make-answer";
+import { NotAllowedError } from "./errors/not-allowed-error";
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let sut: DeleteAnswerUseCase;
@@ -26,13 +27,21 @@ describe('Delete Answer', () => {
   })
 
   it("should not be able to delete a answer with wrong author id", async () => {
-    const newAnswer = makeAnswer({}, new UniqueEntityId("answer-1"));
+    const newAnswer = makeAnswer(
+      {
+        authorId: new UniqueEntityId("author-id")
+      },
+      new UniqueEntityId("answer-1")
+    );
 
-    inMemoryAnswersRepository.create(newAnswer);
+    await inMemoryAnswersRepository.create(newAnswer);
 
-    await expect(() => sut.execute({
+    const result = await sut.execute({
       authorId: "wrong-author-id",
       answerId: "answer-1"
-    })).rejects.toBeInstanceOf(Error);
+    });
+
+    expect(result.isLeft()).toBe(true);
+    expect(result.value).toBeInstanceOf(NotAllowedError);
   })
 })
