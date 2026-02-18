@@ -15,10 +15,16 @@ describe('Create Question', () => {
     const result = await sut.execute({
       authorId: "1",
       title: "This is a question",
-      content: "Content of the question."
+      content: "Content of the question.",
+      attachmentsIds: ["1", "2"]
     });
 
     expect(result.isRight()).toBe(true);
     expect(inMemoryQuestionsRepository.items[0]).toEqual(result.value?.question);
+    expect(inMemoryQuestionsRepository.items[0].attachments).toHaveLength(2);
+    expect(inMemoryQuestionsRepository.items[0].attachments).toEqual([
+      expect.objectContaining({ attachmentId: expect.objectContaining({ value: "1" }) }),
+      expect.objectContaining({ attachmentId: expect.objectContaining({ value: "2" }) })
+    ]);
   })
 })
