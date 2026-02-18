@@ -8,9 +8,7 @@ interface DeleteAnswerCommentUseCaseRequest {
   answerCommentId: string;
 }
 
-type DeleteAnswerCommentUseCaseResponse = Either<
-  ResourceNotFoundError | NotAllowedError,
-  {}>;
+type DeleteAnswerCommentUseCaseResponse = Either<string, {}>;
 
 export class DeleteAnswerCommentUseCase {
   constructor(
@@ -24,11 +22,11 @@ export class DeleteAnswerCommentUseCase {
     const answerComment = await this.answerCommentsRepository.findById(answerCommentId);
 
     if (!answerComment) {
-      return left(new ResourceNotFoundError());
+      return left('Answer comment not found');
     }
 
     if (answerComment.authorId.toString() !== authorId) {
-      return left(new NotAllowedError());
+      return left('Not allowed');
     }
 
     await this.answerCommentsRepository.delete(answerComment);
