@@ -13,4 +13,11 @@ export class InMemoryQuestionAttachmentsRepository implements QuestionAttachment
     return questionsComments;
   }
 
+  async deleteManyByQuestionId(questionId: string) {
+    const quesionAttachments = this.items.filter(
+      (item) => item.questionId.toString() !== questionId
+    )
+
+    this.items = quesionAttachments;
+  }
 }
