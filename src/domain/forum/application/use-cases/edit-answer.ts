@@ -57,6 +57,7 @@ export class EditAnswerUseCase {
     answerAttachmentsList.update(answerAttachments);
 
     answer.content = content;
+    answer.attachments = answerAttachmentsList;
 
     await this.answersRepository.save(answer);
 
