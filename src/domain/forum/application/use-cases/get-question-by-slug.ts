@@ -1,7 +1,7 @@
 import { Question } from '@/domain/forum/enterprise/entities/question'
 import {  left, right, type Either } from '@/core/either'
 import type { QuestionsRepository } from '../repositories/questions-repository'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { ResourceNotFoundError } from '@/core/erros/errors/resource-not-found-error'
 
 interface GetQuestionBySlugUseCaseRequest {
   slug: string
