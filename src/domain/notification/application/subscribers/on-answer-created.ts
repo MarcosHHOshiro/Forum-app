@@ -1,9 +1,14 @@
 import { DomainEvents } from "@/core/events/domain-events";
 import type { EventHandler } from "@/core/events/event-handler";
+import type { QuestionsRepository } from "@/domain/forum/application/repositories/questions-repository";
 import { AnswerCreatedEvent } from "@/domain/forum/enterprise/entities/events/answer-created-event";
+import type { SendNotificationUseCase } from "../use-cases/send-notification";
 
 export class OnAnswerCreated implements EventHandler {
-  constructor() {
+  constructor(
+    private questionsRepository: QuestionsRepository,
+    private sendNotification: SendNotificationUseCase,
+  ) {
     this.setupSubscriptions();
   }
 
@@ -12,8 +17,14 @@ export class OnAnswerCreated implements EventHandler {
   }
 
   private async sendNewAnswerNotification({ answer }: AnswerCreatedEvent) {
-    console.log("Answer created event received. Sending notification...");
-    // Here you would implement the logic to send a notification to the user
-    // For example, you could use an email service or push notification service
+    const question = await this.questionsRepository.findById(answer.questionId.toString());
+
+    if (question) {
+      await this.sendNotification.execute({
+        recepientId: question.authorId.toString(),
+        title: "Nova resposta",
+        content: `O usuário ${answer.authorId.toString()} respondeu a sua pergunta "${question.title}".`
+      });
+    }
   }
 }
